@@ -12,19 +12,20 @@ def get_cookie() -> str:
 
 
 def main() -> None:
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print('Wrong number of arguments')
         sys.exit(0)
 
     cookie = get_cookie()
-    day = sys.argv[1]
+    year = sys.argv[1]
+    day = sys.argv[2]
     headers = {'session': cookie}
-    url = f'https://adventofcode.com/2021/day/{day}/input'
+    url = f'https://adventofcode.com/{year}/day/{day}/input'
 
     session = requests.Session()
     resp = session.get(url, cookies=headers)
 
-    in_file = open(f'inputs/{day.zfill(2)}.txt', 'w')
+    in_file = open(f'year_{year}/inputs/{day.zfill(2)}.txt', 'w')
     in_file.write(resp.text)
     in_file.close()
 

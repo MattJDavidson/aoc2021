@@ -1,4 +1,4 @@
-from days.fastio import intlines
+from utils import intlines
 
 
 def part1():
