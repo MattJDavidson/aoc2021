@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Generator
 
 from pyrival.misc.FastIO import input
 
@@ -21,3 +21,7 @@ def lines() -> List[str]:
             break
         output.append(y)
     return output
+
+
+def line_as_int() -> Generator[int, None, None]:
+    return (int(c) for c in (lines()[0]))

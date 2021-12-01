@@ -12,7 +12,7 @@ def main():
     day = sys.argv[2].zfill(2)
     part = sys.argv[3]
 
-    command = f"cat inputs/{day}.txt | python -c 'from year_{year}.day_{day} import part{part}; part{part}()'"
+    command = f"cat year_{year}/inputs/{day}.txt | python -c 'from year_{year}.day_{day} import part{part}; part{part}()'"
 
     ps = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
