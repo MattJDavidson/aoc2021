@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import subprocess
+import sys
+
+
+def main():
+    if len(sys.argv) != 3:
+        print('Wrong number of arguments')
+        sys.exit(0)
+
+    day = sys.argv[1].zfill(2)
+    part = sys.argv[2]
+
+    command = f"cat inputs/{day}.txt | python -c 'from days.day_{day} import part{part}; part{part}()'"
+
+    ps = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    output = ps.communicate()[0]
+    print(output.decode("ascii").rstrip("\r\n"))
+
+
+if __name__ == "__main__":
+    main()
