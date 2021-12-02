@@ -1,4 +1,3 @@
-
 from utils import lines
 
 
@@ -6,31 +5,32 @@ def part1():
     depth = 0
     horizontal = 0
     for line in lines():
-        parts = line.split()
-        if "forward" in parts[0]:
-            horizontal += int(parts[1])
-        if "down" in parts[0]:
-            depth += int(parts[1])
-        if "up" in parts[0]:
-            depth -= int(parts[1])
-    print(depth*horizontal)
+        movement, distance = line.split()
+        distance = int(distance)
+        if movement == "forward":
+            horizontal += distance
+        if movement == "down":
+            depth += distance
+        if movement == "up":
+            depth -= distance
+    print(depth * horizontal)
 
 
 def part2():
     depth = 0
     horizontal = 0
     aim = 0
-    x = lines()
-    for line in x:
-        parts = line.split()
-        if "forward" in parts[0]:
-            horizontal += int(parts[1])
-            depth += aim*int(parts[1])
-        if "down" in parts[0]:
-            aim += int(parts[1])
-        if "up" in parts[0]:
-            aim -= int(parts[1])
-    print(depth*horizontal)
+    for line in lines():
+        movement, distance = line.split()
+        distance = int(distance)
+        if movement == "forward":
+            horizontal += distance
+            depth += aim * distance
+        if movement == "down":
+            aim += distance
+        if movement == "up":
+            aim -= distance
+    print(depth * horizontal)
 
 
 def main():
