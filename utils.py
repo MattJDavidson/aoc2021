@@ -4,12 +4,10 @@ from collections import defaultdict, deque
 from functools import lru_cache
 from heapq import heappop, heappush
 from random import random
-from typing import List, Generator
+from typing import List, Generator, Tuple, Iterable
 
 from itertools import *
 from pyrival.misc.FastIO import input
-
-
 
 
 def intlines() -> List[int]:
@@ -35,8 +33,8 @@ def lines() -> List[str]:
 def line_as_int() -> Generator[int, None, None]:
     return (int(c) for c in (lines()[0]))
 
-# Python 3.x Utility Functions
 
+# Python 3.x Utility Functions
 
 
 letters = 'abcdefghijklmnopqrstuvwxyz'
@@ -48,9 +46,6 @@ cat = ''.join
 Ø = frozenset()  # Empty set
 inf = float('inf')
 BIG = 10 ** 999
-
-
-
 
 
 def Array(lines):
@@ -383,3 +378,59 @@ def bfs(start, moves_func, goals):
     "Breadth-first search"
     goal_func = (goals if callable(goals) else lambda s: s in goals)
     return Astar(start, moves_func, lambda s: (0 if goal_func(s) else 1))
+
+
+def ints_from_string(string: str) -> Iterable[int]:
+    return map(int, re.findall('\d+', string))
+
+
+Point = Tuple[int, int]
+
+
+def sign(x) -> int:
+    return 0 if x == 0 else +1 if x > 0 else -1
+
+
+class Line:
+    def __init__(self, start: Point, end: Point):
+        self.x1, self.y1 = start
+        self.x2, self.y2 = end
+
+    def is_vertical(self):
+        return self.y1 == self.y2
+
+    def is_horizontal(self):
+        return self.x1 == self.x2
+
+    def is_diagonal(self):
+        return not (self.is_horizontal() or self.is_vertical())
+
+    @property
+    def start(self) -> Point:
+        return self.x1, self.y1
+
+    @property
+    def end(self) -> Point:
+        return self.x2, self.y2
+
+    @property
+    def direction(self) -> Tuple[int, int]:
+        # returns direction from North (0,1) East (1,0) South West, (-1, -1)
+        return sign(self.x2 - self.x1), sign(self.y2 - self.y1)
+
+    @property
+    def length(self):
+        return max(abs(self.x2 - self.x1), abs(self.y2 - self.y1))
+
+    @classmethod
+    def from_ints(cls, x1, y1, x2, y2):
+        return cls(start=(x1, y1), end=(x2, y2))
+
+    def points(self, diagonal=False) -> Iterable[Point]:
+        if not diagonal and self.is_diagonal():
+            return ()
+        dx, dy = self.direction
+        return ((self.x1 + k * dx, self.y1 + k * dy) for k in range(self.length + 1))
+
+    def __repr__(self):
+        return f"Line({self.x1=},{self.y1=}, {self.x2=},{self.y2=})"
