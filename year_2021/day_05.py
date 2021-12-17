@@ -9,7 +9,7 @@ def part1():
 
     for line in the_lines:
         if not line.is_diagonal():
-            for point in line.points():
+            for point in line.points(diagonal=False):
                 floor[point] += 1
     print(sum([1 for i in floor if floor[i] > 1]))
 
@@ -19,7 +19,7 @@ def part2():
     floor = defaultdict(int)
 
     for line in the_lines:
-        for point in line.points(diagonal=True):
+        for point in line.points():
             floor[point] += 1
     print(sum([1 for i in floor if floor[i] > 1]))
 

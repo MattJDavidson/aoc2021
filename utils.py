@@ -426,7 +426,7 @@ class Line:
     def from_ints(cls, x1, y1, x2, y2):
         return cls(start=(x1, y1), end=(x2, y2))
 
-    def points(self, diagonal=False) -> Iterable[Point]:
+    def points(self, diagonal=True) -> Iterable[Point]:
         if not diagonal and self.is_diagonal():
             return ()
         dx, dy = self.direction
