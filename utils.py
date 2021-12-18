@@ -430,7 +430,8 @@ class Line:
         if not diagonal and self.is_diagonal():
             return ()
         dx, dy = self.direction
-        return ((self.x1 + (dist * dx), self.y1 + (dist * dy)) for dist in range(int(not lower_bound), self.length + int(upper_bound)))
+        return ((self.x1 + (dist * dx), self.y1 + (dist * dy)) for dist in
+                range(int(not lower_bound), self.length + int(upper_bound)))
 
     def __repr__(self):
         return f"Line({self.x1=},{self.y1=}, {self.x2=},{self.y2=})"

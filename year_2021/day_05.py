@@ -25,7 +25,7 @@ def part2():
 
 
 def main():
-    part1() # 7269
+    part1()  # 7269
     # part2()  # 21140
 
 
