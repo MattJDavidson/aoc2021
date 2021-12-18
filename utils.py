@@ -426,11 +426,11 @@ class Line:
     def from_ints(cls, x1, y1, x2, y2):
         return cls(start=(x1, y1), end=(x2, y2))
 
-    def points(self, diagonal=True) -> Iterable[Point]:
+    def points(self, diagonal=True, lower_bound=True, upper_bound=True) -> Iterable[Point]:
         if not diagonal and self.is_diagonal():
             return ()
         dx, dy = self.direction
-        return ((self.x1 + k * dx, self.y1 + k * dy) for k in range(self.length + 1))
+        return ((self.x1 + (dist * dx), self.y1 + (dist * dy)) for dist in range(int(not lower_bound), self.length + int(upper_bound)))
 
     def __repr__(self):
         return f"Line({self.x1=},{self.y1=}, {self.x2=},{self.y2=})"
